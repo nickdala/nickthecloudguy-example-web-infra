@@ -2,38 +2,14 @@
 
 This project demonstrates how to automate secure and scalable website deployment on AWS using Amazon CloudFront and AWS CDK. It is based on the AWS blog post: [Automating Secure and Scalable Website Deployment on AWS with Amazon CloudFront and AWS CDK](https://aws.amazon.com/blogs/apn/automating-secure-and-scalable-website-deployment-on-aws-with-amazon-cloudfront-and-aws-cdk/).
 
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
-* `npx cdk destroy`  destroy this stack that you have deployed
-
-
 
 ## AWS Setup for GitHub Actions
 
 To enable GitHub Actions to interact with AWS resources, you need to set up an IAM role with the necessary permissions. This project includes the code to create the IAM role, but there is a prerequisite step you must complete manually.
 
-### Prerequisite
-
-Run the following command to create an OpenID Connect (OIDC) provider for GitHub:
-
-```bash
-aws iam create-open-id-connect-provider \
-  --url https://token.actions.githubusercontent.com \
-  --thumbprint-list 6938fd4d98bab03faadb97b34396831e3780aea1 \
-  --client-id-list sts.amazonaws.com
-```
-
-This command establishes a trust relationship between AWS and GitHub Actions.
-
 ### IAM Role Setup
 
-The `GithubCredsStack` in this project defines an IAM role for GitHub Actions. This role:
+The `GitHubCredsStack` in this project defines an IAM role for GitHub Actions. This role:
 
 - Assumes a WebIdentityPrincipal using the OIDC provider.
 - Grants permissions to interact with an S3 bucket (e.g., `PutObject`, `GetObject`, `ListBucket`, `DeleteObject`).
@@ -76,6 +52,12 @@ When you register a domain with AWS Route 53, AWS automatically creates a **host
 
 ### Deployment
 
+First build the project:
+
+```bash
+npm run build
+```
+
 To deploy the web stack, run the following command:
 
 ```bash
@@ -88,3 +70,21 @@ npx cdk deploy --all
 After deployment, the ARN of the IAM role will be output. You can use this ARN in your GitHub Actions workflows to assume the role and interact with AWS resources.
 
 After deployment, the outputs will include the S3 bucket name, CloudFront distribution ID, and other relevant details.
+
+## Teardown
+
+Run the following command to destroy the stack and clean up all resources:
+
+```bash
+npx cdk destroy --all
+```
+
+## Useful commands
+
+* `npm run build`   compile typescript to js
+* `npm run watch`   watch for changes and compile
+* `npm run test`    perform the jest unit tests
+* `npx cdk deploy`  deploy this stack to your default AWS account/region
+* `npx cdk diff`    compare deployed stack with current state
+* `npx cdk synth`   emits the synthesized CloudFormation template
+* `npx cdk destroy`  destroy this stack that you have deployed

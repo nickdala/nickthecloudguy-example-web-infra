@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
 import { WebCdkStack } from '../lib/web-stack';
-import { GithubCredsStack } from '../lib/github-creds';
+import { GitHubCredsStack } from '../lib/github-creds';
 
 const app = new cdk.App();
 
@@ -19,7 +19,7 @@ const web = new WebCdkStack(app, 'WebCdkStack', {
     }
 });
 
-new GithubCredsStack(app, 'GithubCredsStack', {
+new GitHubCredsStack(app, 'GitHubCredsStack', {
     cfd: web.distribution,
     bucketName: SITE_DOMAIN,
     githubRepo: GITHUB_REPO,

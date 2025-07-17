@@ -1,17 +1,16 @@
 import * as cdk from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
-import { get } from 'http';
 
-interface GithubCredsStackProps extends cdk.StackProps {
+interface GitHubCredsStackProps extends cdk.StackProps {
     cfd: cloudfront.Distribution;
     bucketName: string;
     githubRepo: string;
 }
 
 // https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/
-export class GithubCredsStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props: GithubCredsStackProps) {
+export class GitHubCredsStack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string, props: GitHubCredsStackProps) {
     super(scope, id, props);
 
     // Get account id
@@ -30,6 +29,7 @@ export class GithubCredsStack extends cdk.Stack {
        githubProvider = new iam.OpenIdConnectProvider(this, 'GitHubOIDC', {
            url: 'https://token.actions.githubusercontent.com',
            clientIds: ['sts.amazonaws.com'],
+           thumbprints: ['6938fd4d98bab03faadb97b34396831e3780aea1']
        });
     }
 
