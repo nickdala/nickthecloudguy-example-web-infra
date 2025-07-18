@@ -1,4 +1,8 @@
-# Welcome to your CDK TypeScript project
+# Static web infrastructure on AWS
+
+This project has an accompanying blog post on [www.nickthecloudguy.com](https://nickthecloudguy.com/aws-web-cloudfront) that explains how to set up a static website on AWS using CloudFront, S3, Route 53, and GitHub Actions.
+
+## Welcome to your CDK TypeScript project
 
 This project demonstrates how to automate secure and scalable website deployment on AWS using Amazon CloudFront and AWS CDK. It is based on the AWS blog post: [Automating Secure and Scalable Website Deployment on AWS with Amazon CloudFront and AWS CDK](https://aws.amazon.com/blogs/apn/automating-secure-and-scalable-website-deployment-on-aws-with-amazon-cloudfront-and-aws-cdk/).
 
