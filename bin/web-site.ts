@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
 import { WebCdkStack } from '../lib/web-stack';
 import { GitHubCredsStack } from '../lib/github-creds';
